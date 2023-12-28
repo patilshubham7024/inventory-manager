@@ -1,11 +1,10 @@
 package com.shop.inventorymanager.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Table(name = "user")
 @Entity
@@ -13,14 +12,15 @@ import jakarta.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
-    private Long userId;
+    private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "first_name")
@@ -34,4 +34,21 @@ public class User {
 
     @Column(name = "role")
     private String role;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+
+    @Column(name = "updated_date")
+    private LocalDateTime updatedDate;
+
+    @PrePersist
+    public void setCreatedDate() {
+        this.createdDate = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void setUpdatedDate() {
+        this.updatedDate = LocalDateTime.now();
+    }
+
 }

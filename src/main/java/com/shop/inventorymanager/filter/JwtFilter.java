@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private JwtUtil jwtUtils;
+	private JwtUtil jwtUtil;
 
 	@Autowired
 	private UserLoginDetailsService userLoginDetailsService;
@@ -33,22 +33,19 @@ public class JwtFilter extends OncePerRequestFilter {
 		String token;
 		String username = null;
 		if (auth != null && auth.startsWith("Bearer")) {
-			token = auth.substring(6);
-			username = jwtUtils.getUsernameFromToken(token);
+			token = auth.substring(7);
+			username = jwtUtil.getUsernameFromToken(token);
 		}
 
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserLoginDetails currentUser = (UserLoginDetails) userLoginDetailsService.loadUserByUsername(username);
+            UserLoginDetails currentUser = (UserLoginDetails) userLoginDetailsService.loadUserByUsername(username);
 
 			UsernamePasswordAuthenticationToken userAuthToken = new UsernamePasswordAuthenticationToken(currentUser,
 					null, currentUser.getAuthorities());
 			userAuthToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 			SecurityContextHolder.getContext().setAuthentication(userAuthToken);
 		}
-
 		filterChain.doFilter(request, response);
-
 	}
-
 }
 

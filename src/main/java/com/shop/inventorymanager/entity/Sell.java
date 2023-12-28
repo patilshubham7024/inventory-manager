@@ -1,12 +1,9 @@
 package com.shop.inventorymanager.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Table(name = "sell")
 @Entity
@@ -14,6 +11,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Sell {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +25,20 @@ public class Sell {
     @JoinColumn(name = "userId")
     private User user;
 
-    private Double salePrice;
-    private Integer saleQuantity;
-    private Date saleDate;
+    private Double sellPrice;
+    private Integer sellQuantity;
+    private LocalDateTime sellDateTime;
+
+    private LocalDateTime createdDate;
+    private LocalDateTime updatedDate;
+
+    @PrePersist
+    public void setCreatedDate() {
+        this.createdDate = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void setUpdatedDate() {
+        this.updatedDate = LocalDateTime.now();
+    }
 }

@@ -1,19 +1,21 @@
 package com.shop.inventorymanager.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Table(name = "purchase")
+@Table(name = "stock")
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Purchase {
+public class Stock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +25,7 @@ public class Purchase {
     @JoinColumn(name = "productId")
     private Product product;
 
-    private Double purchasePrice;
-    private Integer purchaseQuantity;
-    private Date purchaseDate;
+    private Integer stockQuantity;
 
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
