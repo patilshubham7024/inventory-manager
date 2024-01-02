@@ -11,5 +11,4 @@ import java.io.Serializable;
 @Builder
 public class SellAddResponse implements Serializable {
     private String message;
-    private String productName;
 }

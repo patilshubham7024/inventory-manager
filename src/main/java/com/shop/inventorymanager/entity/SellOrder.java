@@ -4,33 +4,38 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
 
-@Table(name = "stock")
+@Table(name = "sell_order")
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Stock {
-
+public class SellOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "productId")
-    private Product product;
+    @OneToMany(mappedBy = "sellOrder", cascade = CascadeType.ALL)
+    private List<Item> items;
 
-    private Integer stockQuantity;
+    @Column(name = "total_amount")
+    private Double totalAmount;
 
+    private String customerName;
+
+    private LocalDateTime orderDateTime;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
     @PrePersist
     public void setCreatedDate() {
         this.createdDate = LocalDateTime.now();
+        if(orderDateTime == null) {
+            orderDateTime = LocalDateTime.now();
+        }
     }
 
     @PreUpdate

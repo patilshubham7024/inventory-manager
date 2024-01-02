@@ -1,6 +1,10 @@
 package com.shop.inventorymanager.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -8,7 +12,11 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class SellAddRequest {
-    private String productCode;
-    private Integer quantity;
-    private Double price;
+    @NotNull(message = "Products should not be empty.")
+    private List<SoldProduct> products;
+
+    private String customerName;
+
+    @NotNull(message = "Amount is mandatory.")
+    private Double sellAmount;
 }

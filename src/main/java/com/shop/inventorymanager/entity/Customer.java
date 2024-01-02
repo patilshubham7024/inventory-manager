@@ -4,26 +4,20 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
-@Table(name = "stock")
+@Table(name = "customer")
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Stock {
-
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "productId")
-    private Product product;
-
-    private Integer stockQuantity;
+    private String customerName;
 
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;

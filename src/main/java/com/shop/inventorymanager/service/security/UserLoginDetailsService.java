@@ -23,7 +23,7 @@ public class UserLoginDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username);
-        UserDTO userDTO = dtoMapper.mapUserEntityToUserDTO(user);
+        UserDTO userDTO = null;
         return new UserLoginDetails(userDTO);
 	}
 

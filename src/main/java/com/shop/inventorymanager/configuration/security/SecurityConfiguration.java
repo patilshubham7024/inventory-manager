@@ -39,28 +39,30 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityfilterchain(HttpSecurity http) throws Exception {
 
-        return http.csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request ->
-                        request
-                                .requestMatchers(HttpMethod.GET,"/login").hasAnyAuthority("ROLE_ADMIN")
-                            .requestMatchers(HttpMethod.POST,"/login").permitAll())
-                .sessionManagement(session ->
-                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+//        return http.csrf(AbstractHttpConfigurer::disable)
+//                .cors(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(request ->
+//                        request
+//                                .requestMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
+//                                .requestMatchers(HttpMethod.GET,"/login").hasAnyAuthority("ROLE_ADMIN")
+//                            .requestMatchers(HttpMethod.POST,"/login").permitAll())
+//                .sessionManagement(session ->
+//                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+//                .build();
 
-//        http.csrf().disable().cors().disable().authorizeHttpRequests()
-//                .requestMatchers("/api/v1/admin/auth/authenticate","/api/v1/admin/auth/add", "/api/v1/admin/alladmin", "/api/v1/admin/details-")
-//                .permitAll()
-//                .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+        http.csrf().disable().cors().disable().authorizeHttpRequests()
+//                .requestMatchers("/login").permitAll()
+//                .requestMatchers(HttpMethod.POST,"/user").hasRole("ADMIN")
+//                .requestMatchers(HttpMethod.GET,"/user").hasRole("ADMIN")
+                .anyRequest().permitAll()
 //                .anyRequest().authenticated()
-//                .and().sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+                .and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-//        return http.build();
+        return http.build();
 
     }
 
@@ -68,4 +70,14 @@ public class SecurityConfiguration {
     AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
+
+//    @Bean
+//    public Docket api() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .select()
+//                .apis(RequestHandlerSelectors.any())
+//                .paths(PathSelectors.any())
+//                .build();
+//    }
+
 }

@@ -1,6 +1,7 @@
 package com.shop.inventorymanager.service;
 
 import com.shop.inventorymanager.entity.Product;
+import com.shop.inventorymanager.entity.Stock;
 import com.shop.inventorymanager.mapper.DTOMapper;
 import com.shop.inventorymanager.model.ProductAddRequest;
 import com.shop.inventorymanager.model.ProductDTO;
@@ -25,7 +26,8 @@ public class ProductService {
     public List<ProductDTO> get() {
         log.info("ProductService -> get");
         List<Product> productList = productRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
-        return dtoMapper.mapProductEntityToProductDTO(productList);
+//        return dtoMapper.mapProductEntityToProductDTO(productList);
+        return null;
     }
 
     public Product add(ProductAddRequest addRequest) {

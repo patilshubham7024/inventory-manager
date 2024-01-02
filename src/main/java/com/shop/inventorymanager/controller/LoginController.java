@@ -7,7 +7,6 @@ import com.shop.inventorymanager.service.security.UserLoginDetailsService;
 import com.shop.inventorymanager.util.jwt.JwtUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
