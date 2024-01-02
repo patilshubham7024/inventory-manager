@@ -63,22 +63,22 @@ public class DTOMapper {
 //                .build();
 //    }
 //
-//    public List<ProductDTO> mapProductEntityToProductDTO(List<Product> products) {
-//        if(CollectionUtils.isEmpty(products)){
-//            return null;
-//        }
-//        return products.stream().map(this::mapProductEntityToProductDTO).collect(Collectors.toList());
-//    }
-//
-//    public ProductDTO mapProductEntityToProductDTO(Product product) {
-//        if (product == null)
-//            return null;
-//        return ProductDTO.builder()
-//                .code(product.getCode())
-//                .name(product.getName())
-//                .sellPrice(product.getSellPrice())
-//                .build();
-//    }
+    public List<ProductDTO> mapProductEntityToProductDTO(List<Product> products) {
+        if(CollectionUtils.isEmpty(products)){
+            return null;
+        }
+        return products.stream().map(this::mapProductEntityToProductDTO).collect(Collectors.toList());
+    }
+
+    public ProductDTO mapProductEntityToProductDTO(Product product) {
+        if (product == null)
+            return null;
+        return ProductDTO.builder()
+                .code(product.getCode())
+                .name(product.getName())
+                .sellPrice(product.getSellPrice())
+                .build();
+    }
 //
 //    public List<PurchaseDTO> mapPurchaseEntityToPurchaseDTO(List<Purchase> purchases) {
 //        if(CollectionUtils.isEmpty(purchases)){

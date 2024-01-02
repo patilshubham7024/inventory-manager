@@ -26,8 +26,7 @@ public class ProductService {
     public List<ProductDTO> get() {
         log.info("ProductService -> get");
         List<Product> productList = productRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
-//        return dtoMapper.mapProductEntityToProductDTO(productList);
-        return null;
+        return dtoMapper.mapProductEntityToProductDTO(productList);
     }
 
     public Product add(ProductAddRequest addRequest) {
