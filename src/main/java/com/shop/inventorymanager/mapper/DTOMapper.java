@@ -79,24 +79,24 @@ public class DTOMapper {
                 .sellPrice(product.getSellPrice())
                 .build();
     }
-//
-//    public List<PurchaseDTO> mapPurchaseEntityToPurchaseDTO(List<Purchase> purchases) {
-//        if(CollectionUtils.isEmpty(purchases)){
-//            return null;
-//        }
-//        return purchases.stream().map(this::mapPurchaseEntityToPurchaseDTO).collect(Collectors.toList());
-//    }
-//
-//    public PurchaseDTO mapPurchaseEntityToPurchaseDTO(Purchase purchase) {
-//        if (purchase == null)
-//            return null;
-//        return PurchaseDTO.builder()
-//                .productName(purchase.getProduct().getName())
-//                .purchasePrice(purchase.getPurchasePrice())
-//                .purchaseQuantity(purchase.getPurchaseQuantity())
-//                .build();
-//    }
-//
+
+    public List<PurchaseDTO> mapPurchaseEntityToPurchaseDTO(List<Purchase> purchases) {
+        if(CollectionUtils.isEmpty(purchases)){
+            return null;
+        }
+        return purchases.stream().map(this::mapPurchaseEntityToPurchaseDTO).collect(Collectors.toList());
+    }
+
+    public PurchaseDTO mapPurchaseEntityToPurchaseDTO(Purchase purchase) {
+        if (purchase == null)
+            return null;
+        return PurchaseDTO.builder()
+                .productName(purchase.getProduct().getName())
+                .purchasePrice(purchase.getPurchasePrice())
+                .purchaseQuantity(purchase.getPurchaseQuantity())
+                .build();
+    }
+
 //    public UserDTO mapUserEntityToUserDTO(User user) {
 //        if (user == null)
 //            return null;

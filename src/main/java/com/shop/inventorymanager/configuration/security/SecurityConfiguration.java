@@ -39,30 +39,31 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityfilterchain(HttpSecurity http) throws Exception {
 
-//        return http.csrf(AbstractHttpConfigurer::disable)
-//                .cors(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(request ->
-//                        request
+        return http.csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(request ->
+                        request.anyRequest().permitAll()
 //                                .requestMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
 //                                .requestMatchers(HttpMethod.GET,"/login").hasAnyAuthority("ROLE_ADMIN")
-//                            .requestMatchers(HttpMethod.POST,"/login").permitAll())
-//                .sessionManagement(session ->
-//                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-//                .build();
+//                            .requestMatchers(HttpMethod.POST,"/login").permitAll()
+                )
+                .sessionManagement(session ->
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
 
-        http.csrf().disable().cors().disable().authorizeHttpRequests()
-//                .requestMatchers("/login").permitAll()
-//                .requestMatchers(HttpMethod.POST,"/user").hasRole("ADMIN")
-//                .requestMatchers(HttpMethod.GET,"/user").hasRole("ADMIN")
-                .anyRequest().permitAll()
-//                .anyRequest().authenticated()
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
+//        http.csrf().disable().cors().disable().authorizeHttpRequests()
+////                .requestMatchers("/login").permitAll()
+////                .requestMatchers(HttpMethod.POST,"/user").hasRole("ADMIN")
+////                .requestMatchers(HttpMethod.GET,"/user").hasRole("ADMIN")
+//                .anyRequest().permitAll()
+////                .anyRequest().authenticated()
+//                .and().sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
 
     }
 

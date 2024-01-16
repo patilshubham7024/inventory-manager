@@ -2,10 +2,12 @@ package com.shop.inventorymanager.service;
 
 import com.shop.inventorymanager.entity.Product;
 import com.shop.inventorymanager.entity.Purchase;
+import com.shop.inventorymanager.entity.Stock;
 import com.shop.inventorymanager.mapper.DTOMapper;
 import com.shop.inventorymanager.model.ProductAddRequest;
 import com.shop.inventorymanager.model.PurchaseAddRequest;
 import com.shop.inventorymanager.model.PurchaseDTO;
+import com.shop.inventorymanager.model.StockDTO;
 import com.shop.inventorymanager.repository.ProductRepository;
 import com.shop.inventorymanager.repository.PurchaseRepository;
 import lombok.extern.log4j.Log4j2;
@@ -31,11 +33,13 @@ public class PurchaseService {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private StockService stockService;
+
     public List<PurchaseDTO> get() {
         log.info("PurchaseService -> get");
         List<Purchase> purchaseList = purchaseRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
-//        return dTOMapper.mapPurchaseEntityToPurchaseDTO(purchaseList);
-        return null;
+        return dTOMapper.mapPurchaseEntityToPurchaseDTO(purchaseList);
     }
 
     public Purchase add(PurchaseAddRequest addRequest) {
@@ -44,6 +48,7 @@ public class PurchaseService {
         if(product == null) {
             product = addProduct(addRequest);
         }
+        stockService.purchase(StockDTO.builder().productCode(product.getCode()).purchaseQuantity(addRequest.getQuantity()).build());
         return purchaseRepository.save(Purchase.builder()
                 .product(product)
                 .purchasePrice(addRequest.getPrice())
